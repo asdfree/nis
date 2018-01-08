@@ -11,7 +11,7 @@ nis_cat <-
 # 2015 only
 nis_cat <- subset( nis_cat , year == 2015 )
 # download the microdata to your local computer
-lodown( "nis" , nis_cat )
+
 
 options( survey.lonely.psu = "adjust" )
 
