@@ -33,6 +33,8 @@ before_install:
 - sudo /etc/init.d/postgresql stop
 - sudo free -m -t
 
-# this_build_matrix
+env:
+ - this_sample_break=1
+ - this_sample_break=2
 matrix:
     fast_finish: true

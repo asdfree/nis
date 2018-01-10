@@ -1,7 +1,12 @@
 if ( .Platform$OS.type == 'windows' ) memory.limit( 256000 )
 
 library(lodown)
-lodown( "nis" , output_dir = file.path( getwd() ) )
+this_sample_break <- Sys.getenv( "this_sample_break" )
+nis_cat <- get_catalog( "nis" , output_dir = file.path( getwd() ) )
+record_categories <- ceiling( seq( nrow( nis_cat ) ) / ceiling( nrow( nis_cat ) / 2 ) )
+nis_cat <- nis_cat[ record_categories == this_sample_break , ]
+lodown( "nis" , nis_cat )
+if( any( nis_cat$year == 2015 & nis_cat$directory == 'main' ) ){
 library(lodown)
 # examine all available NIS microdata files
 nis_cat <-
@@ -179,3 +184,4 @@ nis_srvyr_design %>%
 	group_by( state_name ) %>%
 	summarize( mean = survey_mean( p_nuhepx , na.rm = TRUE ) )
 
+}
