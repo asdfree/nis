@@ -7,17 +7,17 @@ this_sample_break <- Sys.getenv( "this_sample_break" )
 nis_cat <- get_catalog( "nis" , output_dir = file.path( getwd() ) )
 record_categories <- ceiling( seq( nrow( nis_cat ) ) / ceiling( nrow( nis_cat ) / 2 ) )
 nis_cat <- nis_cat[ record_categories == this_sample_break , ]
-lodown( "nis" , nis_cat )
+nis_cat <- lodown( "nis" , nis_cat )
 if( any( nis_cat$year == 2015 & nis_cat$directory == 'main' ) ){
-library(lodown)
-# examine all available NIS microdata files
-nis_cat <-
-	get_catalog( "nis" ,
-		output_dir = file.path( getwd() ) )
 
-# 2015 only
-nis_cat <- subset( nis_cat , year == 2015 )
-# download the microdata to your local computer
+
+
+
+
+
+
+
+
 
 
 options( survey.lonely.psu = "adjust" )
