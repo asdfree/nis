@@ -32,9 +32,6 @@ environment:
     - this_sample_break: 2
 
 
-on_failure:
-  - travis-tool.sh dump_logs
-
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
