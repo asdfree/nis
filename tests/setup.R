@@ -100,7 +100,7 @@ svyby(
 	ci = TRUE , na.rm = TRUE
 )
 svyratio( 
-	numerator = ~ childnm , 
+	numerator = ~ bf_exclr06 , 
 	denominator = ~ bf_endr06 , 
 	nis_design ,
 	na.rm = TRUE
