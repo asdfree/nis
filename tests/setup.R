@@ -1,26 +1,32 @@
 # 
 # 
 # 
-library(Hmisc)
-
-tf <- tempfile()
+dat_tf <- tempfile()
 
 dat_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF21.DAT"
 
-download.file( dat_url , tf , mode = 'wb' )
+download.file( dat_url , dat_tf , mode = 'wb' )
+library(Hmisc)
 
-r_input_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF21.R"
+r_tf <- tempfile()
 
-r_input_lines <- readLines( r_input_url )
+r_script_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF21.R"
+
+r_input_lines <- readLines( r_script_url )
 
 # do not let the script do the save()
 r_input_lines <- gsub( "^save\\(" , "# save(" , r_input_lines )
 
-# redirect flat file to tf
-r_input_lines <- gsub( '\\"path\\-to\\-file\\/(.*)\\.DAT\\"' , "tf" , r_input_lines )
+# redirect the path to the flat file to the local save location of `dat_tf`
+r_input_lines <- gsub( '\\"path\\-to\\-file\\/(.*)\\.DAT\\"' , "dat_tf" , r_input_lines )
 
-eval( parse( text = r_input_lines ) )
+# save the edited script locally
+writeLines( r_input_lines , r_tf )
 
+# run the edited script
+source( r_tf , echo = TRUE )
+
+# rename the resultant data.frame object
 nis_df <- NISPUF21
 
 names( nis_df ) <- tolower( names( nis_df ) )
