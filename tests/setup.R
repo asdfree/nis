@@ -46,6 +46,9 @@ nis_design <-
 		
 		nis_design , 
 		
+		first_fed_formula =
+			ifelse( bf_formr20 %in% 888 , NA , bf_formr20 ) ,
+		
 		dtap_3p =
 
 			as.numeric(
@@ -77,22 +80,22 @@ svyby( ~ one , ~ state , nis_design , unwtd.count )
 svytotal( ~ one , nis_design )
 
 svyby( ~ one , ~ state , nis_design , svytotal )
-svymean( ~ p_nuhepx , nis_design , na.rm = TRUE )
+svymean( ~ first_fed_formula , nis_design , na.rm = TRUE )
 
-svyby( ~ p_nuhepx , ~ state , nis_design , svymean , na.rm = TRUE )
+svyby( ~ first_fed_formula , ~ state , nis_design , svymean , na.rm = TRUE )
 svymean( ~ sex , nis_design , na.rm = TRUE )
 
 svyby( ~ sex , ~ state , nis_design , svymean , na.rm = TRUE )
-svytotal( ~ p_nuhepx , nis_design , na.rm = TRUE )
+svytotal( ~ first_fed_formula , nis_design , na.rm = TRUE )
 
-svyby( ~ p_nuhepx , ~ state , nis_design , svytotal , na.rm = TRUE )
+svyby( ~ first_fed_formula , ~ state , nis_design , svytotal , na.rm = TRUE )
 svytotal( ~ sex , nis_design , na.rm = TRUE )
 
 svyby( ~ sex , ~ state , nis_design , svytotal , na.rm = TRUE )
-svyquantile( ~ p_nuhepx , nis_design , 0.5 , na.rm = TRUE )
+svyquantile( ~ first_fed_formula , nis_design , 0.5 , na.rm = TRUE )
 
 svyby( 
-	~ p_nuhepx , 
+	~ first_fed_formula , 
 	~ state , 
 	nis_design , 
 	svyquantile , 
@@ -106,8 +109,8 @@ svyratio(
 	na.rm = TRUE
 )
 sub_nis_design <- subset( nis_design , p_utdpol == 1 )
-svymean( ~ p_nuhepx , sub_nis_design , na.rm = TRUE )
-this_result <- svymean( ~ p_nuhepx , nis_design , na.rm = TRUE )
+svymean( ~ first_fed_formula , sub_nis_design , na.rm = TRUE )
+this_result <- svymean( ~ first_fed_formula , nis_design , na.rm = TRUE )
 
 coef( this_result )
 SE( this_result )
@@ -116,7 +119,7 @@ cv( this_result )
 
 grouped_result <-
 	svyby( 
-		~ p_nuhepx , 
+		~ first_fed_formula , 
 		~ state , 
 		nis_design , 
 		svymean ,
@@ -128,22 +131,22 @@ SE( grouped_result )
 confint( grouped_result )
 cv( grouped_result )
 degf( nis_design )
-svyvar( ~ p_nuhepx , nis_design , na.rm = TRUE )
+svyvar( ~ first_fed_formula , nis_design , na.rm = TRUE )
 # SRS without replacement
-svymean( ~ p_nuhepx , nis_design , na.rm = TRUE , deff = TRUE )
+svymean( ~ first_fed_formula , nis_design , na.rm = TRUE , deff = TRUE )
 
 # SRS with replacement
-svymean( ~ p_nuhepx , nis_design , na.rm = TRUE , deff = "replace" )
+svymean( ~ first_fed_formula , nis_design , na.rm = TRUE , deff = "replace" )
 svyciprop( ~ dtap_3p , nis_design ,
 	method = "likelihood" )
-svyttest( p_nuhepx ~ dtap_3p , nis_design )
+svyttest( first_fed_formula ~ dtap_3p , nis_design )
 svychisq( 
 	~ dtap_3p + sex , 
 	nis_design 
 )
 glm_result <- 
 	svyglm( 
-		p_nuhepx ~ dtap_3p + sex , 
+		first_fed_formula ~ dtap_3p + sex , 
 		nis_design 
 	)
 
@@ -151,11 +154,11 @@ summary( glm_result )
 library(srvyr)
 nis_srvyr_design <- as_survey( nis_design )
 nis_srvyr_design %>%
-	summarize( mean = survey_mean( p_nuhepx , na.rm = TRUE ) )
+	summarize( mean = survey_mean( first_fed_formula , na.rm = TRUE ) )
 
 nis_srvyr_design %>%
 	group_by( state ) %>%
-	summarize( mean = survey_mean( p_nuhepx , na.rm = TRUE ) )
+	summarize( mean = survey_mean( first_fed_formula , na.rm = TRUE ) )
 
 results <-
 	svyby( 
