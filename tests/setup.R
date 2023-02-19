@@ -168,9 +168,13 @@ results <-
 		svymean
 	)
 
-stopifnot( round( results[ "HISPANIC" , "p_utd431h314_rout_sUTD" , ] , 3 ) == .711 )
-stopifnot( round( results[ "NON-HISPANIC WHITE ONLY" , "p_utd431h314_rout_sUTD" , ] , 3 ) == .742 )
-stopifnot( round( results[ "NON-HISPANIC BLACK ONLY" , "p_utd431h314_rout_sUTD" , ] , 3 ) == .647 )
-stopifnot( round( results[ "HISPANIC" , "se.p_utd431h314_rout_sUTD" , ] , 3 ) == .015 )
-stopifnot( round( results[ "NON-HISPANIC WHITE ONLY" , "se.p_utd431h314_rout_sUTD" , ] , 3 ) == .009 )
-stopifnot( round( results[ "NON-HISPANIC BLACK ONLY" , "se.p_utd431h314_rout_sUTD" , ] , 3 ) == .022 )
+coefficients <- results[ , "p_utd431h314_rout_sUTD" , drop = FALSE ]
+
+standard_errors <- results[ , "se.p_utd431h314_rout_sUTD" , drop = FALSE ]
+
+stopifnot( round( coefficients[ "HISPANIC" , ] , 3 ) == .711 )
+stopifnot( round( coefficients[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .742 )
+stopifnot( round( coefficients[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .647 )
+stopifnot( round( standard_errors[ "HISPANIC" , ] , 3 ) == .015 )
+stopifnot( round( standard_errors[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .009 )
+stopifnot( round( standard_errors[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .022 )
