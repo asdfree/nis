@@ -157,14 +157,6 @@ glm_result <-
 	)
 
 summary( glm_result )
-library(srvyr)
-nis_srvyr_design <- as_survey( nis_design )
-nis_srvyr_design %>%
-	summarize( mean = survey_mean( first_fed_formula , na.rm = TRUE ) )
-
-nis_srvyr_design %>%
-	group_by( state ) %>%
-	summarize( mean = survey_mean( first_fed_formula , na.rm = TRUE ) )
 
 results <-
 	svyby( 
@@ -184,3 +176,11 @@ stopifnot( round( coefficients[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .647 )
 stopifnot( round( standard_errors[ "HISPANIC" , ] , 3 ) == .015 )
 stopifnot( round( standard_errors[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .009 )
 stopifnot( round( standard_errors[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .022 )
+library(srvyr)
+nis_srvyr_design <- as_survey( nis_design )
+nis_srvyr_design %>%
+	summarize( mean = survey_mean( first_fed_formula , na.rm = TRUE ) )
+
+nis_srvyr_design %>%
+	group_by( state ) %>%
+	summarize( mean = survey_mean( first_fed_formula , na.rm = TRUE ) )
