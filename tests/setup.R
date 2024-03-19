@@ -35,9 +35,9 @@ nis_df[ , 'one' ] <- 1
 # nis_fn <- file.path( path.expand( "~" ) , "NIS" , "this_file.rds" )
 # saveRDS( nis_df , file = nis_fn , compress = FALSE )
 # nis_df <- readRDS( nis_fn )
-options( survey.lonely.psu = "adjust" )
-
 library(survey)
+
+options( survey.lonely.psu = "adjust" )
 
 nis_design <- 
 	svydesign(
