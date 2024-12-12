@@ -3,14 +3,14 @@
 # a wonderful world
 dat_tf <- tempfile()
 
-dat_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF21.DAT"
+dat_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF23.DAT"
 
 download.file( dat_url , dat_tf , mode = 'wb' )
 library(Hmisc)
 
 r_tf <- tempfile()
 
-r_script_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF21.R"
+r_script_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF23.R"
 
 r_input_lines <- readLines( r_script_url )
 
@@ -27,7 +27,7 @@ writeLines( r_input_lines , r_tf )
 source( r_tf , echo = TRUE )
 
 # rename the resultant data.frame object
-nis_df <- NISPUF21
+nis_df <- NISPUF23
 
 names( nis_df ) <- tolower( names( nis_df ) )
 
@@ -170,12 +170,12 @@ coefficients <- results[ , "p_utd431h314_rout_sUTD" , drop = FALSE ]
 
 standard_errors <- results[ , "se.p_utd431h314_rout_sUTD" , drop = FALSE ]
 
-stopifnot( round( coefficients[ "HISPANIC" , ] , 3 ) == .711 )
-stopifnot( round( coefficients[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .742 )
-stopifnot( round( coefficients[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .647 )
-stopifnot( round( standard_errors[ "HISPANIC" , ] , 3 ) == .015 )
-stopifnot( round( standard_errors[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .009 )
-stopifnot( round( standard_errors[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .022 )
+stopifnot( round( coefficients[ "HISPANIC" , ] , 3 ) == .674 )
+stopifnot( round( coefficients[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .716 )
+stopifnot( round( coefficients[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .666 )
+stopifnot( round( standard_errors[ "HISPANIC" , ] , 3 ) == .017 )
+stopifnot( round( standard_errors[ "NON-HISPANIC WHITE ONLY" , ] , 3 ) == .008 )
+stopifnot( round( standard_errors[ "NON-HISPANIC BLACK ONLY" , ] , 3 ) == .023 )
 library(srvyr)
 nis_srvyr_design <- as_survey( nis_design )
 nis_srvyr_design %>%
