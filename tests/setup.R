@@ -3,7 +3,7 @@
 # a wonderful world
 dat_tf <- tempfile()
 
-dat_url <- "https://ftp.cdc.gov/pub/Vaccines_NIS/NISPUF23.DAT"
+dat_url <- "https://www.cdc.gov/nis/media/files/2024/11/NISPUF23.DAT"
 
 download.file( dat_url , dat_tf , mode = 'wb' )
 library(Hmisc)
